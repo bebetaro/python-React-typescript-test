@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 import { Interface } from 'readline';
 
 interface State {
   name: string | number | string[] | undefined;
   password: string | number | string[] | undefined;
+  respond: Respond[];
+}
+
+interface Respond {
+  name: String;
+  password: String;
 }
 
 interface Props {}
@@ -14,9 +21,28 @@ class App extends Component<Props, State> {
     super(props);
     this.state = {
       name: '',
-      password: ''
+      password: '',
+      respond: []
     };
   }
+
+  renderRespond = () => {
+    let counter: number = 0;
+    return this.state.respond.map((res, counter) => {
+      counter++;
+      return (
+        <p key={counter}>{`USER NAME: ${res.name} / PASSWORD: ${
+          res.password
+        }`}</p>
+      );
+    });
+  };
+
+  handleSubmit = async () => {
+    const res = await axios.post('http://localhost:8080/api/login', this.state);
+    this.setState({ respond: [...this.state.respond, res.data] });
+    console.log(this.state.respond);
+  };
 
   render() {
     return (
@@ -37,7 +63,9 @@ class App extends Component<Props, State> {
             this.setState({ password: e.target.value });
           }}
         />
-        <button onClick={() => console.log(this.state)}>Submit</button>
+        <button onClick={this.handleSubmit}>Submit</button>
+        <p />
+        <div>{this.renderRespond()}</div>
       </div>
     );
   }
