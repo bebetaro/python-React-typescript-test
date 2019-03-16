@@ -46,26 +46,52 @@ class App extends Component<Props, State> {
 
   render() {
     return (
-      <div className="App">
-        <span>Name: </span>
-        <input
-          type="text"
-          value={this.state.name}
-          onChange={(e: any) => {
-            this.setState({ name: e.target.value });
-          }}
-        />
-        <span>Password: </span>
-        <input
-          type="text"
-          value={this.state.password}
-          onChange={e => {
-            this.setState({ password: e.target.value });
-          }}
-        />
-        <button onClick={this.handleSubmit}>Submit</button>
-        <p />
+      <div className="container">
+        <div className="row col s12">
+          <nav>
+            <div className="nav-wrapper">
+              <a href="#" className="brand-logo">
+                Logo
+              </a>
+            </div>
+          </nav>
+          <div className="col s8 offset-s2">
+            <div className="input_field">
+              <label htmlFor="username">USERNAME</label>
+              <input
+                id="username"
+                type="text"
+                value={this.state.name}
+                onChange={(e: any) => {
+                  this.setState({ name: e.target.value });
+                }}
+              />
+            </div>
+
+            <div className="input_field">
+              <label htmlFor="password">PASSWORD</label>
+              <input
+                id="password"
+                type="text"
+                value={this.state.password}
+                onChange={e => {
+                  this.setState({ password: e.target.value });
+                }}
+              />
+            </div>
+            <div
+              className="push-s2 waves-effect waves-light btn"
+              onClick={this.handleSubmit}
+            >
+              Submit
+            </div>
+          </div>
+        </div>
+
         <div>{this.renderRespond()}</div>
+        <footer className="page-footer col s12">
+          <div>Simple demo app</div>
+        </footer>
       </div>
     );
   }
